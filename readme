@@ -1,0 +1,72 @@
+
+## Inspiration Behind Haven 
+
+Alzheimer’s affects millions of people worldwide, gradually taking away their ability to remember personal details, daily routines, and even the people closest to them. During moments of confusion, patients often need reassurance more than raw information.
+
+ I wanted to explore how AI, when designed thoughtfully, could act as a **supportive cognitive companion**, not just a chatbot. This project was inspired by the idea that technology can help preserve dignity, emotional safety, and independence for Alzheimer’s patients in their everyday lives.
+
+---
+
+## What it does
+
+This project is an **AI-powered voice assistant workflow** built in **n8n** for Alzheimer’s patients. The assistant can hold calm, reassuring conversations and help patients remember personal details, daily routines, and loved ones.
+
+Key capabilities include:
+
+* Answering personal questions using a **RAG (Retrieval-Augmented Generation) tool powered by Gemini File Search API** based on the patient’s life history and caregiver notes
+* Checking and creating **google calendar events** to support daily structure
+* Accessing a **contact list of loved ones** stored in a google spreadsheet, allowing the assistant to help patients reach family members when in distress or when feeling lonely.
+* Responding with a **gentle, slow-paced voice powered by ElevenLabs** designed to reduce anxiety and confusion.
+
+The system is designed to prioritize emotional reassurance and familiarity for Alzheimers patients.
+
+---
+
+## How we built it
+
+The entire agentic system is built on **n8n**, where each capability is implemented as a modular workflow.
+
+* **Gemini** is used as the core reasoning and retrieval model for both the workflow AI Agent as well as the ElevenLab's Agent. 
+* Patient memory documents are indexed using the **Gemini File Search API**, enabling fast and context-aware RAG responses. **Gemini Flash** was chosen for its low latency, which is critical for natural voice interactions.
+* **ElevenLabs** powers the voice output. We selected a calm, warm voice and adjusted pacing to be slower and more soothing, which is important for Alzheimer’s patients.
+* Google Calendar API tools allow the agent to retrieve and create events for reminders and daily orientation.
+* A structured Google spreadsheet stores contact information for loved ones, making it easy for the agent to identify caregivers and close family members.
+* A Gmail API tool allows the user to send emails by simply chatting with the agent.
+* The workflow includes intent detection and state handling so the voice assistant can respond differently during confusion, routine questions, or emotional distress.
+
+## How to set up
+
+Prerequisites:
+
+ElevenLabs Account
+Gemini API key
+Google Cloud account
+
+
+Get the Json file in the repo and open it in n8n.
+
+#  Setup The Agent  
+
+
+Follow the steps below to get this Gemini-powered RAG up:
+
+###  Step 1: Get Your [Gemini API Key](https://aistudio.google.com/app/apikey)  
+Grab your Gemini API key and plug it into the HTTP Request node that powers the agent's responses.
+
+###  Step 2: Link Your File Store  
+Make sure the **name of your file store** is correctly linked in both the `Import File` HTTP Request and the `Knowledge Base` HTTP Request. This ensures your documents get stored and referenced properly.
+
+###  Step 3: Upload Your PDFs  
+Choose the PDFs you want to use for testing. 
+i have a sample pdf with an imaginary patient's data in the github repo
+
+### Step 4: Setup the ElevenLabs Webhook  
+Use the prompt in the github repo to set up the ElevnLabs agent prompt
+
+
+###  Step 4: Query the Agent  
+Start chatting with your agent via voice and test out the responses
+
+
+
+
